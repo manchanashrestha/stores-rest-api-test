@@ -1,0 +1,151 @@
+{
+	"variables": [],
+	"info": {
+		"name": "User Create store Item",
+		"_postman_id": "fc174d34-fb62-ec3d-7ab1-b090f9403965",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "{{url}}/item/test",
+			"request": {
+				"url": "{{url}}/item/test",
+				"method": "GET",
+				"header": [],
+				"body": {}
+			},
+			"response": []
+		},
+		{
+			"name": "{{url}}/item/my_item",
+			"request": {
+				"url": "{{url}}/item/my_item",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "JWT {{access_token}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "{{url}}/stores",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 201;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/store/salesberry",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"salesberry\",\n  \"items\": [\n    {\n      \"name\": \"test put\", \n      \"price\": 17.99\n      \n    }\n    ]\n}"
+				},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "{{url}}/store/test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"STatus code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/store/put",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "{{url}}/item/put",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/item/put",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "JWT {{access_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"store_id\":\"1\",\n  \"name\": \"put\", \n  \"price\": 44\n  \n}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{url}}/items",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/items",
+				"method": "GET",
+				"header": [],
+				"body": {}
+			},
+			"response": []
+		}
+	]
+}
