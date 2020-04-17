@@ -3,6 +3,7 @@ from models.item import ItemModel
 
 from tests.base_test import BaseTest
 
+
 class StoreTest(BaseTest):
     def test_create_store_items_empty(self):
         store = StoreModel('test')
@@ -44,6 +45,31 @@ class StoreTest(BaseTest):
             item.save_to_db()
 
             expected = {
+                'id': None,
+                'name': 'test',
+                'items': []
+            }
+            # expected = {
+            #     'id': None,
+            #     'name': 'test',
+            #     'items': [{'name': 'test_item', 'price': 19.99}]
+            # }
+
+            self.assertDictEqual(
+                store.json(),
+                expected,
+                "The JSON export of the store is incorrect. Received {}, expected {}.".format(store.json(), expected))
+
+    def test_store_json_with_item(self):
+        with self.app_context():
+            store = StoreModel('test')
+            item = ItemModel('test_item', 19.99, 1)
+
+            store.save_to_db()
+            item.save_to_db()
+
+            expected = {
+                'id': None,
                 'name': 'test',
                 'items': [{'name': 'test_item', 'price': 19.99}]
             }
@@ -52,4 +78,3 @@ class StoreTest(BaseTest):
                 store.json(),
                 expected,
                 "The JSON export of the store is incorrect. Received {}, expected {}.".format(store.json(), expected))
-
