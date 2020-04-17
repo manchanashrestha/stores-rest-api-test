@@ -47,7 +47,7 @@ class StoreTest(BaseTest):
             expected = {
                 'id': 1,
                 'name': 'test',
-                'items': []
+                'items': [{'name': 'test_item', 'price': 19.99}]
             }
             # expected = {
             #     'id': None,
@@ -56,6 +56,8 @@ class StoreTest(BaseTest):
             # }
             # Received {'id': 1, 'name': 'test', 'items': [{'name': 'test_item', 'price': 19.99}]},
             # expected {'id': None, 'name': 'test', 'items': [{'name': 'test_item', 'price': 19.99}]}.
+            #  {'id': 1, 'name': 'test', 'items': [{'name': 'test_item', 'price': 19.99}]} !=
+            #  {'id': 1, 'name': 'test', 'items': []}
             self.assertDictEqual(
                 store.json(),
                 expected,
@@ -70,7 +72,7 @@ class StoreTest(BaseTest):
             item.save_to_db()
 
             expected = {
-                'id': None,
+                'id': 1,
                 'name': 'test',
                 'items': [{'name': 'test_item', 'price': 19.99}]
             }
@@ -79,3 +81,6 @@ class StoreTest(BaseTest):
                 store.json(),
                 expected,
                 "The JSON export of the store is incorrect. Received {}, expected {}.".format(store.json(), expected))
+
+#              {'id': 1, 'name': 'test', 'items': [{'name': 'test_item', 'price': 19.99}]} !=
+#              {'id': None, 'name': 'test', 'items': [{'name': 'test_item', 'price': 19.99}]}

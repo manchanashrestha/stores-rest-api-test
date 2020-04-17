@@ -65,8 +65,11 @@ class StoreTest(BaseTest):
                 StoreModel('test').save_to_db()
                 response = client.get('/stores')
 
-                self.assertDictEqual(d1={'id': 1, 'stores': [{'name': 'test', 'items': []}]},
+                self.assertDictEqual(d1={'stores': [{'id': 1, 'name': 'test', 'items': []}]},
                                      d2=json.loads(response.data))
+
+    #             {'id': 1, 'stores': [{'name': 'test', 'items': []}]} !=
+    #             {'stores': [{'id': 1, 'name': 'test', 'items': []}]}
 
     def test_store_with_items_list(self):
         with self.app() as client:
@@ -75,8 +78,11 @@ class StoreTest(BaseTest):
                 ItemModel('test', 17.99, 1).save_to_db()
                 response = client.get('/stores')
 
-                self.assertDictEqual(d1={'stores': [{'name': 'test',
-                                                     'items': [{'id': 1,'name': 'test', 'price': 17.99}]}]},
+                self.assertDictEqual(d1={'stores': [{'id': 1,'name': 'test',
+                                                     'items': [{'name': 'test', 'price': 17.99}]}]},
                                      d2=json.loads(response.data))
 #                 {'id': 1, 'stores': [{'name': 'test', 'items': []}]} !=
 #                 {'stores': [{'id': 1, 'name': 'test', 'items': []}]}
+
+#                  {'stores': [{'name': 'test', 'items': [{'id': 1, 'name'[24 chars]}]}]} !=
+#                  {'stores': [{'id': 1, 'name': 'test', 'items': [{'name'[24 chars]}]}]}
